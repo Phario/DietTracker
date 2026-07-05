@@ -13,4 +13,5 @@ public class MealEntity : EntityBase
     public required double Carbs { get; set; }
     public required double Fats { get; set; }
     public ICollection<MealTags>? Tags { get; set; }
+    public bool IsIngredient { get; set; }
 }
