@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietTracker.Persistence", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietTracker.Core.Auth", "DietTracker.Core.Auth\DietTracker.Core.Auth.csproj", "{C433162B-C184-474A-A830-99E8EFCBF480}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietTracker.Core.Common", "DietTracker.Core.Common\DietTracker.Core.Common.csproj", "{394104CE-F1C1-4026-97D8-3123DBF490B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C433162B-C184-474A-A830-99E8EFCBF480}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C433162B-C184-474A-A830-99E8EFCBF480}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C433162B-C184-474A-A830-99E8EFCBF480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{394104CE-F1C1-4026-97D8-3123DBF490B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{394104CE-F1C1-4026-97D8-3123DBF490B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{394104CE-F1C1-4026-97D8-3123DBF490B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{394104CE-F1C1-4026-97D8-3123DBF490B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

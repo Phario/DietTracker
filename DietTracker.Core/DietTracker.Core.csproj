@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DietTracker.Core.Auth\DietTracker.Core.Auth.csproj" />
       <ProjectReference Include="..\DietTracker.Persistence\DietTracker.Persistence.csproj" />
     </ItemGroup>
 
