@@ -10,4 +10,8 @@
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.11" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DietTracker.Persistence\DietTracker.Persistence.csproj" />
+    </ItemGroup>
+
 </Project>
