@@ -1,5 +1,6 @@
 using DietTracker.Core.Users.Commands;
 using DietTracker.Core.Users.Results;
+using DietTracker.Persistence.Enums;
 using DietTracker.Requests;
 using DispatchR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -16,6 +17,7 @@ internal static class UserController
         group.WithTags("Users");
 
         group.MapPost("/login", LoginAsync);
+        group.MapPost("/register", RegisterAsync);
         
         return endpoints;
     }
@@ -29,6 +31,20 @@ internal static class UserController
             Password = request.Password
         }, ct);
 
+        return TypedResults.Ok(result);
+    }
+
+    private static async Task<Ok<TokenDto>> RegisterAsync([FromBody] RegisterRequest request,
+        [FromServices] IMediator mediator, CancellationToken ct)
+    {
+        var result = await mediator.Send(new RegisterCommand
+        {
+            Email = request.Email,
+            Password = request.Password,
+            Name = request.Name,
+            UserRole = RoleNames.User
+        }, ct);
+        
         return TypedResults.Ok(result);
     }
 }

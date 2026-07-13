@@ -1,10 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 namespace DietTracker.Persistence.Domain;
 
 public class EntityBase
 {
     public Guid Id { get; set; }
-    public DateTime CreatedAt { get; init; }
+    public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public UserEntity CreatedBy { get; init; }
-    public UserEntity UpdatedBy { get; set; }
+    public Guid CreatedById { get; set; }
+    public UserEntity CreatedBy { get; set; }
+}
+
+internal class EntityBaseConfiguration : IEntityTypeConfiguration<UserEntity>
+{
+    public void Configure(EntityTypeBuilder<UserEntity> builder)
+    {
+        builder.UseTpcMappingStrategy();
+    }
 }
