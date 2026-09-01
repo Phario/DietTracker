@@ -9,5 +9,5 @@ public class MealDto
     public required double Protein { get; init; }
     public required double Carbs { get; init; }
     public required double Fats { get; init; }
-    public ICollection<MealTags>? Tags { get; init; } = [];
+    public ICollection<MealTag>? Tags { get; init; } = [];
 }

@@ -8,7 +8,7 @@ public class EntityBase
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public Guid CreatedById { get; set; }
+    public Guid? CreatedById { get; set; }
     public UserEntity CreatedBy { get; set; }
 }
 

@@ -12,12 +12,14 @@ internal static class UserController
 {
     public static IEndpointRouteBuilder MapUsers(this IEndpointRouteBuilder endpoints)
     {
-        var group = endpoints.MapGroup("users");
+        var group = endpoints.MapGroup("/users");
         
         group.WithTags("Users");
 
         group.MapPost("/login", LoginAsync);
         group.MapPost("/register", RegisterAsync);
+        group.MapPost("/token/refresh", RefreshTokenAsync)
+            .RequireAuthorization(PolicyNames.Authenticated);
         
         return endpoints;
     }
@@ -45,6 +47,17 @@ internal static class UserController
             UserRole = RoleNames.User
         }, ct);
         
+        return TypedResults.Ok(result);
+    }
+
+    private static async Task<Ok<TokenDto>> RefreshTokenAsync([FromBody] RefreshTokenRequest request,
+        [FromServices] IMediator mediator, CancellationToken ct)
+    {
+        var result = await mediator.Send(new RefreshTokenCommand
+        {
+            RefreshToken = request.RefreshToken
+        }, ct);
+
         return TypedResults.Ok(result);
     }
 }

@@ -33,6 +33,7 @@ internal static class MealController
             Carbs = request.Carbs,
             Fats = request.Fats,
             Protein = request.Protein,
+            Tags =  request.Tags.ToHashSet()
         }, ct);
         
         return TypedResults.Ok(mealId);

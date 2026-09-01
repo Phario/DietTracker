@@ -26,7 +26,7 @@ internal class GetAllMealsQueryHandler : IRequestHandler<GetAllMealsQuery, Task<
                 Protein = x.Protein,
                 Carbs = x.Carbs,
                 Fats = x.Fats,
-                Tags = x.Tags
+                Tags = x.Tags.Select(y => y.Tag).ToList()
             })
             .AsNoTracking()
             .ToListAsync(ct);

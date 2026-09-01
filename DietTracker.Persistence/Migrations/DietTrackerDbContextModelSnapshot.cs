@@ -22,6 +22,36 @@ namespace DietTracker.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("DietTracker.Persistence.Domain.DietGoals.DietRecordEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("MealId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("DietGoals");
+                });
+
             modelBuilder.Entity("DietTracker.Persistence.Domain.Meals.MealEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -37,7 +67,7 @@ namespace DietTracker.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -46,6 +76,9 @@ namespace DietTracker.Persistence.Migrations
                     b.Property<double>("Fats")
                         .HasColumnType("double precision");
 
+                    b.Property<bool>("IsIngredient")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -53,22 +86,30 @@ namespace DietTracker.Persistence.Migrations
                     b.Property<double>("Protein")
                         .HasColumnType("double precision");
 
-                    b.PrimitiveCollection<int[]>("Tags")
-                        .HasColumnType("integer[]");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("UpdatedById");
-
                     b.ToTable("Meals");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Meals.MealTagEntity", b =>
+                {
+                    b.Property<Guid>("MealId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Tag")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.HasKey("MealId", "Tag");
+
+                    b.HasIndex("Tag");
+
+                    b.ToTable("MealTagEntity");
                 });
 
             modelBuilder.Entity("DietTracker.Persistence.Domain.UserEntity", b =>
@@ -138,6 +179,32 @@ namespace DietTracker.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.UseTpcMappingStrategy();
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Users.RefreshTokenEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("DietTracker.Persistence.Domain.Users.RoleEntity", b =>
@@ -270,23 +337,52 @@ namespace DietTracker.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DietTracker.Persistence.Domain.Meals.MealEntity", b =>
+            modelBuilder.Entity("DietTracker.Persistence.Domain.DietGoals.DietRecordEntity", b =>
                 {
                     b.HasOne("DietTracker.Persistence.Domain.UserEntity", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("DietRecords")
+                        .HasForeignKey("CreatedById");
 
-                    b.HasOne("DietTracker.Persistence.Domain.UserEntity", "UpdatedBy")
+                    b.HasOne("DietTracker.Persistence.Domain.Meals.MealEntity", "Meal")
                         .WithMany()
-                        .HasForeignKey("UpdatedById")
+                        .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CreatedBy");
 
-                    b.Navigation("UpdatedBy");
+                    b.Navigation("Meal");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Meals.MealEntity", b =>
+                {
+                    b.HasOne("DietTracker.Persistence.Domain.UserEntity", "CreatedBy")
+                        .WithMany("Meals")
+                        .HasForeignKey("CreatedById");
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Meals.MealTagEntity", b =>
+                {
+                    b.HasOne("DietTracker.Persistence.Domain.Meals.MealEntity", "Meal")
+                        .WithMany("Tags")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meal");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Users.RefreshTokenEntity", b =>
+                {
+                    b.HasOne("DietTracker.Persistence.Domain.UserEntity", "User")
+                        .WithOne("RefreshToken")
+                        .HasForeignKey("DietTracker.Persistence.Domain.Users.RefreshTokenEntity", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -338,6 +434,20 @@ namespace DietTracker.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Meals.MealEntity", b =>
+                {
+                    b.Navigation("Tags");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.UserEntity", b =>
+                {
+                    b.Navigation("DietRecords");
+
+                    b.Navigation("Meals");
+
+                    b.Navigation("RefreshToken");
                 });
 #pragma warning restore 612, 618
         }

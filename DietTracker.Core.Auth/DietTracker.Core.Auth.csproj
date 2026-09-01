@@ -7,15 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.11" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.12" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\DietTracker.Core.Common\DietTracker.Core.Common.csproj" />
         <ProjectReference Include="..\DietTracker.Persistence\DietTracker.Persistence.csproj" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="10.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.11" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.11" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="10.0.11" />
     </ItemGroup>
 
 </Project>

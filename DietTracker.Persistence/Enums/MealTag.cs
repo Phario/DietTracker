@@ -1,6 +1,6 @@
 namespace DietTracker.Persistence.Enums;
 
-public enum MealTags
+public enum MealTag
 {
     Dairy,
     Vegan,
