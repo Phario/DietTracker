@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="DietTracker.Api/DietTracker.Api.csproj" />
+  <Project Path="DietTracker.Core.Auth/DietTracker.Core.Auth.csproj" />
+  <Project Path="DietTracker.Core.Common/DietTracker.Core.Common.csproj" />
+  <Project Path="DietTracker.Core/DietTracker.Core.csproj" />
+  <Project Path="DietTracker.Persistence/DietTracker.Persistence.csproj" />
+</Solution>
