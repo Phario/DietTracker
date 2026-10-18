@@ -6,7 +6,8 @@ internal static class EndpointRouteBuilderExtensions
 {
     public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapMealEndpoints();
+        endpoints.MapMeals();
+        endpoints.MapUsers();
         return endpoints;
     }
 }

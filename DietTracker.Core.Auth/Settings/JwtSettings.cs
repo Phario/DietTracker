@@ -20,5 +20,5 @@ public class JwtSettings : IDietTrackerOptions
     public required int ExpiresInMinutes { get; init; }
     
     [Required] 
-    public required int RefreshExpiresInDays { get; init; }
+    public required int RefreshTokenExpiresInDays { get; init; }
 }

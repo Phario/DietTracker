@@ -9,7 +9,6 @@ namespace DietTracker.Persistence.Domain;
 
 public class UserEntity : IdentityUser<Guid>
 {
-    public string Name { get; set; }
     public RefreshTokenEntity? RefreshToken { get; set; }
     public ICollection<MealEntity> Meals { get; set; } = [];
     public ICollection<DietRecordEntity> DietRecords { get; set; } = [];

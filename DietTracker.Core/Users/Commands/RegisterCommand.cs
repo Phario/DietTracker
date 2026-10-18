@@ -33,7 +33,7 @@ internal sealed class RegisterCommandHandler : TokenCommandHandlerBase, IRequest
         var applicationUser = new UserEntity()
         {
             Email = request.Email,
-            Name = request.Name
+            UserName = request.Name
         };
 
         await _userManager.CreateAsync(applicationUser, request.Password);

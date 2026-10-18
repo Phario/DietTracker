@@ -10,7 +10,7 @@ namespace DietTracker.Controllers;
 
 internal static class MealController
 {
-    public static IEndpointRouteBuilder MapMealEndpoints(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapMeals(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("meals");
 
