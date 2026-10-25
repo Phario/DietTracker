@@ -9,5 +9,6 @@ public class WorkoutRoutineDto
     public string? Description { get; init; }
     public required BodyPart TargetBodyPart { get; init; }
     public required int DurationInMinutes { get; init; }
+    public required int CaloriesBurnt { get; init; }
     public ICollection<ExcerciseItemDto> Exercises { get; init; } = [];
 }

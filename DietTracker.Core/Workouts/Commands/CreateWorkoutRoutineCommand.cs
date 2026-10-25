@@ -19,6 +19,7 @@ public record CreateWorkoutRoutineCommand : IRequest<CreateWorkoutRoutineCommand
     public string? Description { get; init; }
     public required BodyPart TargetBodyPart { get; init; }
     public required int DurationInMinutes { get; init; }
+    public required int CaloriesBurnt { get; init; }
     public ICollection<ExerciseItemInput> Exercises { get; init; } = [];
 }
 
@@ -41,6 +42,7 @@ internal class CreateWorkoutRoutineCommandHandler : IRequestHandler<CreateWorkou
             Description = request.Description,
             TargetBodyPart = request.TargetBodyPart,
             DurationInMinutes = request.DurationInMinutes,
+            CaloriesBurnt = request.CaloriesBurnt,
             Exercises = request.Exercises.Select(x => new ExerciseItemEntity
             {
                 Name = x.Name,

@@ -34,6 +34,7 @@ internal static class WorkoutController
             Description = request.Description,
             TargetBodyPart = request.TargetBodyPart,
             DurationInMinutes = request.DurationInMinutes,
+            CaloriesBurnt = request.CaloriesBurnt,
             Exercises = request.Exercises.Select(x => new ExerciseItemInput
             {
                 Name = x.Name,

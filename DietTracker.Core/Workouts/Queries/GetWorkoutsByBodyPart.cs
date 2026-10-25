@@ -27,6 +27,7 @@ internal class GetWorkoutsByCategoryQueryHandler : IRequestHandler<GetWorkoutsBy
                 Description = x.Description,
                 TargetBodyPart =  x.TargetBodyPart,
                 DurationInMinutes =  x.DurationInMinutes,
+                CaloriesBurnt = x.CaloriesBurnt,
                 Exercises = x.Exercises.Select(e => new ExcerciseItemDto
                 {
                     Name = e.Name,

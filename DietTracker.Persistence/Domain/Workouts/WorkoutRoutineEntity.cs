@@ -10,6 +10,7 @@ public class WorkoutRoutineEntity : EntityBase
     public string? Description { get; set; }
     public required BodyPart TargetBodyPart { get; set; }
     public required int DurationInMinutes { get; set; }
+    public required int CaloriesBurnt { get; set; }
 
     public ICollection<ExerciseItemEntity>? Exercises { get; set; }
 }
