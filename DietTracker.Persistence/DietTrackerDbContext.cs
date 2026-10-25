@@ -2,6 +2,7 @@ using DietTracker.Persistence.Domain;
 using DietTracker.Persistence.Domain.DietGoals;
 using DietTracker.Persistence.Domain.Meals;
 using DietTracker.Persistence.Domain.Users;
+using DietTracker.Persistence.Domain.Workouts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ public class DietTrackerDbContext : IdentityDbContext<UserEntity , RoleEntity, G
     public virtual DbSet<MealEntity> Meals => Set<MealEntity>();
     public virtual DbSet<DietRecordEntity> DietGoals => Set<DietRecordEntity>();
     public virtual DbSet<RefreshTokenEntity> RefreshTokens => Set<RefreshTokenEntity>();
+    public virtual DbSet<WorkoutRoutineEntity> Workouts => Set<WorkoutRoutineEntity>();
     
     public DietTrackerDbContext(DbContextOptions<DietTrackerDbContext> options) : base(options)
     {
