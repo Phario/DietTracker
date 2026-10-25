@@ -230,6 +230,72 @@ namespace DietTracker.Persistence.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Workouts.ExerciseItemEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("Reps")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Sets")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("WorkoutRoutineId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkoutRoutineId");
+
+                    b.ToTable("ExerciseItemEntity");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Workouts.WorkoutRoutineEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("DurationInMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TargetBodyPart")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("TargetBodyPart");
+
+                    b.ToTable("Workouts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -381,6 +447,26 @@ namespace DietTracker.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Workouts.ExerciseItemEntity", b =>
+                {
+                    b.HasOne("DietTracker.Persistence.Domain.Workouts.WorkoutRoutineEntity", "WorkoutRoutine")
+                        .WithMany("Exercises")
+                        .HasForeignKey("WorkoutRoutineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkoutRoutine");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Workouts.WorkoutRoutineEntity", b =>
+                {
+                    b.HasOne("DietTracker.Persistence.Domain.UserEntity", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.Navigation("CreatedBy");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("DietTracker.Persistence.Domain.Users.RoleEntity", null)
@@ -444,6 +530,11 @@ namespace DietTracker.Persistence.Migrations
                     b.Navigation("Meals");
 
                     b.Navigation("RefreshToken");
+                });
+
+            modelBuilder.Entity("DietTracker.Persistence.Domain.Workouts.WorkoutRoutineEntity", b =>
+                {
+                    b.Navigation("Exercises");
                 });
 #pragma warning restore 612, 618
         }

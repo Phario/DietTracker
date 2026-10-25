@@ -8,6 +8,7 @@ internal static class EndpointRouteBuilderExtensions
     {
         endpoints.MapMeals();
         endpoints.MapUsers();
+        endpoints.MapWorkouts();
         return endpoints;
     }
 }
